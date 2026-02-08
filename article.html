@@ -3,24 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How I Built this Cyberpunk Blog for $0 using Gemini | Rank Circuit</title>
+    <title>Protocol Zero: Neural Deployment | Rank Circuit</title>
     
     <!-- SEO & Meta Tags -->
-    <meta name="description" content="A deep dive into the creation of Rank Circuit: Prompts, workflow, and the 'Liquid Neo-Glass' aesthetic using Gemini.">
-    <meta name="keywords" content="AI, Tech, Code, Gemini, Cyberpunk Design, Web Development, Prompt Engineering">
+    <meta name="description" content="Technical briefing on deploying neural network inference models via GitHub Pages. Protocol Zero orchestration.">
+    <meta name="keywords" content="Neural Networks, GitHub Pages, AI Deployment, Rank Circuit, Protocol Zero">
     <meta name="author" content="Ambrosio">
     
-    <!-- Open Graph / Social Sharing -->
+    <!-- Open Graph -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://papabrosio.github.io/RankCircuit/article.html">
-    <meta property="og:title" content="How I Built this Cyberpunk Blog for $0 using Gemini">
-    <meta property="og:description" content="Behind the scenes of building a revenue-ready agent platform with 0 budget.">
+    <meta property="og:title" content="Protocol Zero: How to Deploy a Neural Network on GitHub Pages">
     <meta property="og:image" content="./banner.jpg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="How I Built this Cyberpunk Blog for $0 using Gemini">
-    <meta property="twitter:image" content="./banner.jpg">
 
     <!-- Favicon -->
     <link rel="icon" href="./favicon.ico">
@@ -28,17 +21,17 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #050505;
-            --accent-green: #00FF41;
-            --accent-green-dim: rgba(0, 255, 65, 0.15);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #FFFFFF;
-            --text-dim: #A0A0A0;
+            --bg-obsidian: #050505;
+            --accent-neon: #00FF41;
+            --accent-neon-dim: rgba(0, 255, 65, 0.2);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #e0e0e0;
+            --text-dim: #888888;
             --font-body: 'Inter', sans-serif;
             --font-mono: 'Fira Code', monospace;
         }
@@ -50,177 +43,276 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg-obsidian);
+            color: var(--text-primary);
             font-family: var(--font-body);
-            line-height: 1.6;
+            line-height: 1.8;
+            font-size: 1.1rem;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
+        /* --- Noise Texture Overlay --- */
         .noise {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 9999; pointer-events: none; opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            z-index: 9999; pointer-events: none; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
+        /* --- Progress Bar --- */
+        #progress-bar {
+            position: fixed;
+            top: 0; left: 0; height: 3px;
+            background: var(--accent-neon);
+            width: 0%; z-index: 2000;
+            box-shadow: 0 0 10px var(--accent-neon);
+        }
+
+        /* --- Liquid Data Canvas --- */
         #liquid-canvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; opacity: 0.6;
+            z-index: -1;
         }
 
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 2.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
+        /* --- Navigation --- */
         nav {
-            position: fixed;
+            position: sticky;
             top: 0; width: 100%; height: 70px;
             z-index: 1000; display: flex;
             align-items: center; justify-content: space-between;
-            padding: 0 5%; background: rgba(5, 5, 5, 0.7);
-            backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border);
+            padding: 0 5%; background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border);
         }
 
         .logo-container {
-            display: flex; align-items: center; gap: 10px;
-            font-family: var(--font-mono); font-weight: 800;
-            font-size: 1.2rem; color: var(--accent-green);
+            display: flex; align-items: center; gap: 12px;
+            text-decoration: none; color: var(--accent-neon);
+            font-family: var(--font-mono); font-weight: 700;
+        }
+        .logo-container img { height: 30px; width: auto; }
+
+        .breadcrumb {
+            color: var(--accent-neon);
             text-decoration: none;
-        }
-        .logo-container img { height: 32px; width: auto; }
-
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a {
-            color: var(--text-main); text-decoration: none;
-            font-size: 0.9rem; font-weight: 500;
-            transition: color 0.3s ease; text-transform: uppercase;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-transform: uppercase;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
-        .nav-links a:hover { color: var(--accent-green); }
+        .breadcrumb:hover { text-shadow: 0 0 8px var(--accent-neon); }
 
+        /* --- Layout Container --- */
         .container {
-            max-width: 1200px; margin: 120px auto 60px;
+            max-width: 1200px; margin: 40px auto;
             padding: 0 20px; display: grid;
             grid-template-columns: 1fr 340px; gap: 40px;
         }
 
-        @media (max-width: 968px) {
+        @media (max-width: 1024px) {
             .container { grid-template-columns: 1fr; }
             .sidebar { display: none; }
         }
 
         /* --- Article Styling --- */
-        .article-block h1 {
-            font-family: var(--font-mono); font-size: 2.5rem;
-            color: var(--accent-green); line-height: 1.2;
-            margin-bottom: 1.5rem; text-transform: uppercase;
-        }
-
-        .article-block .meta {
-            font-family: var(--font-mono); font-size: 0.85rem;
-            color: var(--accent-green); margin-bottom: 2rem;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 1rem;
-        }
-
-        .article-content { font-size: 1.1rem; color: var(--text-main); }
-        .article-content p { margin-bottom: 1.5rem; }
-        .article-content h2 {
-            font-family: var(--font-mono); color: var(--accent-green);
-            margin: 2.5rem 0 1rem; text-transform: uppercase;
-            font-size: 1.5rem;
-        }
-
-        .article-content code {
-            background: rgba(0, 255, 65, 0.1);
-            color: var(--accent-green);
-            padding: 2px 6px; border-radius: 4px;
-            font-family: var(--font-mono); font-size: 0.9rem;
-        }
-
-        .article-content pre {
-            background: rgba(0, 0, 0, 0.5);
+        .article-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
             border: 1px solid var(--glass-border);
-            padding: 1.5rem; border-radius: 8px;
-            overflow-x: auto; margin: 1.5rem 0;
+            border-radius: 16px;
+            padding: 3rem;
         }
 
-        .article-content pre code {
-            background: transparent; padding: 0;
-            color: #d1d1d1;
+        @media (max-width: 640px) {
+            .article-card { padding: 1.5rem; }
         }
 
-        .back-link {
-            display: inline-flex; align-items: center;
-            gap: 10px; color: var(--accent-green);
-            text-decoration: none; font-family: var(--font-mono);
-            font-size: 0.9rem; margin-bottom: 2rem;
+        .article-header { margin-bottom: 3rem; }
+
+        .article-header .meta {
+            font-family: var(--font-mono);
+            color: var(--accent-neon);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        h1 {
+            font-family: var(--font-mono);
+            color: var(--accent-neon);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            line-height: 1.2;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-family: var(--font-mono);
+            color: var(--accent-neon);
+            margin: 2.5rem 0 1.2rem;
+            font-size: 1.6rem;
             text-transform: uppercase;
         }
 
-        /* --- Sidebar & Others (Shared) --- */
-        .ad-slot {
-            width: 100%; background: rgba(0, 255, 65, 0.05);
-            border: 1px dashed var(--accent-green-dim);
-            border-radius: 8px; margin-bottom: 40px;
-            height: 100px; display: flex;
-            align-items: center; justify-content: center;
-            position: relative; overflow: hidden;
-            font-family: var(--font-mono); font-size: 0.7rem;
-            color: var(--accent-green); letter-spacing: 2px;
+        p { margin-bottom: 1.8rem; }
+
+        strong { color: white; font-weight: 700; }
+
+        /* --- Rich Elements --- */
+        blockquote {
+            margin: 2rem 0;
+            padding-left: 2rem;
+            border-left: 3px solid var(--accent-neon);
+            font-style: italic;
+            background: rgba(0, 255, 65, 0.03);
+            padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+            border-radius: 0 8px 8px 0;
+            color: #ccc;
+        }
+
+        pre {
+            background: #000;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: var(--font-mono);
+            color: var(--accent-neon);
+            font-size: 0.95rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { background: var(--accent-neon); color: black; }
+
+        ul, ol { margin-left: 1.5rem; margin-bottom: 1.8rem; }
+        li { margin-bottom: 0.8rem; }
+        li::marker { color: var(--accent-neon); }
+
+        /* --- Share Protocol --- */
+        .share-section {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .share-title {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
         }
 
-        .ad-slot::after {
-            content: ''; position: absolute;
-            top: -100%; left: 0; width: 100%; height: 50%;
-            background: linear-gradient(180deg, transparent, var(--accent-green-dim), transparent);
-            animation: scan 3s infinite linear;
+        .share-btns { display: flex; gap: 15px; }
+
+        .share-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            border-radius: 6px;
+        }
+        .share-btn:hover {
+            border-color: var(--accent-neon);
+            color: var(--accent-neon);
+            box-shadow: 0 0 10px var(--accent-neon-dim);
         }
 
-        @keyframes scan { 0% { top: -100%; } 100% { top: 100%; } }
+        /* --- Sidebar (Sticky) --- */
+        .sidebar {
+            position: sticky;
+            top: 110px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            height: fit-content;
+        }
 
-        .sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 30px; height: fit-content; }
+        .side-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
         .author-card { text-align: center; }
-        .author-card img { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--accent-green); margin-bottom: 1rem; object-fit: cover; }
-        .author-card h3 { font-family: var(--font-mono); font-size: 1.2rem; margin-bottom: 5px; }
-        .author-card p { font-size: 0.85rem; color: var(--text-dim); }
+        .author-card img {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-neon);
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+        .author-card h3 { font-family: var(--font-mono); font-size: 1.1rem; margin-bottom: 5px; }
+        .author-card p { font-size: 0.8rem; color: var(--text-dim); }
 
         .btn-ko-fi {
-            display: flex; align-items: center; justify-content: center;
-            padding: 12px; background: var(--accent-green);
-            color: var(--bg-color); text-decoration: none;
+            display: block; text-align: center;
+            padding: 12px; background: var(--accent-neon);
+            color: black; text-decoration: none;
             border-radius: 8px; font-weight: 800;
             font-family: var(--font-mono); text-transform: uppercase;
-            box-shadow: 0 0 15px var(--accent-green-dim); transition: all 0.3s ease;
+            font-size: 0.9rem; transition: 0.3s;
         }
-        .btn-ko-fi:hover { transform: scale(1.02); box-shadow: 0 0 25px var(--accent-green); }
+        .btn-ko-fi:hover { transform: scale(1.03); box-shadow: 0 0 20px var(--accent-neon); }
 
-        .newsletter-form h4 { font-family: var(--font-mono); margin-bottom: 10px; color: var(--accent-green); }
-        .newsletter-form p { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 15px; }
-        .newsletter-form input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); padding: 12px; border-radius: 6px; color: white; margin-bottom: 10px; font-family: var(--font-body); }
-        .btn-submit { width: 100%; padding: 10px; background: transparent; border: 1px solid var(--accent-green); color: var(--accent-green); cursor: pointer; font-family: var(--font-mono); text-transform: uppercase; transition: all 0.3s ease; }
-        .btn-submit:hover { background: var(--accent-green); color: var(--bg-color); }
+        .newsletter h4 { font-family: var(--font-mono); color: var(--accent-neon); margin-bottom: 8px; }
+        .newsletter p { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 12px; }
+        .newsletter input {
+            width: 100%; padding: 10px; background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border); color: white;
+            border-radius: 4px; margin-bottom: 8px; font-size: 0.85rem;
+        }
+        .newsletter button {
+            width: 100%; padding: 10px; background: transparent;
+            border: 1px solid var(--accent-neon); color: var(--accent-neon);
+            font-family: var(--font-mono); cursor: pointer; text-transform: uppercase;
+            font-size: 0.8rem; transition: 0.3s;
+        }
+        .newsletter button:hover { background: var(--accent-neon); color: black; }
 
-        footer { border-top: 1px solid var(--glass-border); padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(5, 5, 5, 0.9); margin-top: 60px; }
-        footer p { font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono); }
-        .social-links { display: flex; gap: 20px; }
-        .social-links a { color: var(--accent-green); text-decoration: none; font-size: 0.8rem; font-family: var(--font-mono); text-transform: uppercase; }
-        .social-links a:hover { text-decoration: underline; }
+        footer {
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 80px;
+            opacity: 0.6;
+        }
+        footer p { font-family: var(--font-mono); font-size: 0.75rem; }
+
     </style>
 </head>
 <body>
     <div class="noise"></div>
+    <div id="progress-bar"></div>
     <canvas id="liquid-canvas"></canvas>
 
     <nav>
@@ -228,83 +320,104 @@
             <img src="./logo.png" alt="Rank Circuit Logo">
             <span>RANK_CIRCUIT</span>
         </a>
-        <div class="nav-links">
-            <a href="./index.html#blog-feed">Algorithms</a>
-            <a href="https://github.com/papabrosio" target="_blank">Repository</a>
-            <a href="mailto:your-email@example.com">Contact</a>
-        </div>
+        <a href="./index.html" class="breadcrumb">[ < Return to Terminal ]</a>
     </nav>
 
-    <main class="container">
-        <div class="main-content">
-            <a href="./index.html" class="back-link">← Return to Circuit</a>
-            
-            <article class="glass-card article-block">
-                <div class="meta">BLOCK_REF: 2026.02.08 // ALGO_META_01</div>
-                <h1>How I Built this Cyberpunk Blog for $0 using Gemini</h1>
-                
+    <div class="container">
+        <main>
+            <article class="article-card">
+                <header class="article-header">
+                    <div class="meta">TRANSMISSION_REF: 2026.02.08 // CAT: NEURAL_INFRA</div>
+                    <h1>Protocol Zero: How to Deploy a Neural Network on GitHub Pages</h1>
+                </header>
+
                 <div class="article-content">
-                    <p>Welcome to the machine. What you see before you is not a standard WordPress template or a bloated Squarespace site. It is a custom-engineered <strong>Liquid Neo-Glass</strong> environment built entirely through AI orchestration.</p>
+                    <p>In the current landscape of <strong>edge-computing</strong> and distributed intelligence, relying on heavy server-side environments for inference is becoming a bottleneck. Today, we initiate <em>Protocol Zero</em>: the orchestration of client-side neural execution using static hosting.</p>
 
-                    <h2>1. The Vision: Beyond the Matrix</h2>
-                    <p>The standard "falling green code" is a cliché. For <strong>Rank Circuit</strong>, I wanted something that felt more expensive, fluid, and modern. I prompted Gemini to help me design a "Liquid Data" aesthetic—where information flows organically across the screen rather than dropping in vertical lines.</p>
-                    
-                    <h2>2. The Prompt Engineering</h2>
-                    <p>The heart of this site is the Canvas animation. To achieve the horizontal fluid motion of binary streams, I used variations of this prompt:</p>
-                    <pre><code>"Write a high-performance Vanilla JS Canvas animation. Instead of a standard Matrix rain, create organic 'streams' of 0s and 1s that flow with a sine-wave offset. Use Phosphor Green (#00FF41) with varying opacities to create a sense of depth and liquid movement."</code></pre>
+                    <p>GitHub Pages, traditionally used for documentation and simple portfolios, has enough overhead to serve compiled <strong>TensorFlow.js</strong> or <strong>ONNX</strong> models directly to the browser. Here is how we bypass the legacy server-room requirement.</p>
 
-                    <h2>3. The Glassmorphism Layer</h2>
-                    <p>To make the content cards feel like frosted crystal, we leveraged deep backdrop blurs (<code>blur(24px)</code>) and a critical technical detail: <strong>The Noise Texture.</strong> By overlaying a very subtle SVG fractal noise, the glass gains a physical, grainy quality that breaks the sterile digital look of flat colors.</p>
+                    <h2>1. Model Distillation and Quantization</h2>
+                    <p>Before deployment, you must optimize your weights. A 1GB model will trigger circuit-breakers in a mobile browser. We use 8-bit quantization to shrink the footprint without sacrificing more than 2% precision.</p>
 
-                    <h2>4. Deployment for Free</h2>
-                    <p>Infrastructure shouldn't cost you a dime in the prototype phase. We used <strong>GitHub Pages</strong> to host the entire platform. By pushing a single <code>index.html</code> (containing all logic and styles) to a public repository, the site is live globally in seconds.</p>
+                    <pre><code class="language-bash"># Distill the weights for web consumption
+tensorflowjs_converter \
+    --input_format=tf_saved_model \
+    --output_format=tfjs_graph_model \
+    --quantize_float16=* \
+    ./models/neural_core_v1 \
+    ./web_model</code><button class="copy-btn">COPY</button></pre>
 
-                    <h2>5. Why Aesthetics Matter</h2>
-                    <p>In the age of agents, credibility is tied to the quality of your interface. A site that looks like it was built in 1998 suggests an algorithm that hasn't been updated since then. <strong>Rank Circuit</strong> is designed to signal that the data being ranked is as high-end as the frosted glass it sits on.</p>
-                    
-                    <p>You can find the full source code for this architecture on my <a href="https://github.com/papabrosio/RankCircuit" target="_blank" style="color: var(--accent-green);">GitHub Repository</a>.</p>
+                    <h2>2. Asynchronous Payload Loading</h2>
+                    <p>Do not block the main thread. When the user enters the circuit, we initialize a <strong>Service Worker</strong> to fetch model shards in the background. This ensures the visual interface remains responsive while the heavy tensors are being cached.</p>
+
+                    <blockquote>
+                        "Intelligence that blocks the UI is just high-speed latency. True agency requires silent background execution." 
+                        <br>— <em>Rank Circuit Core Logic</em>
+                    </blockquote>
+
+                    <h2>3. Initializing the Inference Engine</h2>
+                    <p>Once shards are local, we hook into the WebGL backend. This allows the browser to utilize the client's GPU for matrix operations, effectively turning every visitor into a node in your decentralized network.</p>
+
+                    <pre><code class="language-javascript">async function initializeSystem() {
+    const model = await tf.loadGraphModel('./web_model/model.json');
+    console.log("Protocol Zero: Neural Link Established");
+    
+    // Warm up the GPU
+    const zeros = tf.zeros([1, 224, 224, 3]);
+    model.predict(zeros);
+}</code><button class="copy-btn">COPY</button></pre>
+
+                    <h2>Conclusion</h2>
+                    <p>By moving inference to GitHub Pages, you eliminate API costs, reduce latency to zero for returning users, and achieve <strong>infinite scalability</strong>. Your only limit is the client's hardware.</p>
                 </div>
-            </article>
 
-            <div class="ad-slot" style="margin-top: 40px;">
-                [ SPONSORED_NEURAL_LINK // UPLINK_ESTABLISHED ]
-            </div>
-        </div>
+                <section class="share-section">
+                    <span class="share-title">Transmit Data to External Nodes</span>
+                    <div class="share-btns">
+                        <a href="https://twitter.com/intent/tweet?text=Reading Protocol Zero on Rank Circuit" class="share-btn" target="_blank">X / Twitter</a>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://papabrosio.github.io/RankCircuit/article.html" class="share-btn" target="_blank">LinkedIn</a>
+                    </div>
+                </section>
+            </article>
+        </main>
 
         <aside class="sidebar">
-            <div class="glass-card author-card">
+            <div class="side-glass author-card">
                 <img src="./avatar.png" alt="Ambrosio Avatar">
                 <h3>Ambrosio</h3>
-                <p>Architect of Rank Circuit. Specialized in quantitative strategies and autonomous agent infrastructure.</p>
+                <p>Strategic Architect. specialized in quant-fading and autonomous agent systems.</p>
             </div>
 
-            <div class="glass-card">
-                <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1rem; text-align: center;">MAINTAIN THE CIRCUIT</p>
-                <a href="https://ko-fi.com/YOURUSERNAME" class="btn-ko-fi" target="_blank">Support System</a>
+            <div class="side-glass">
+                <p style="font-size: 0.75rem; color: var(--text-dim); text-align: center; margin-bottom: 1rem; letter-spacing: 1px;">MAINTAIN SYSTEM</p>
+                <a href="https://ko-fi.com/YOURUSERNAME" class="btn-ko-fi" target="_blank">Support</a>
             </div>
 
-            <div class="glass-card newsletter-form">
-                <h4>Newsletter Protocol</h4>
-                <p>Receive encrypted updates on algorithm performance and system breakthroughs.</p>
-                <form action="#" method="POST">
-                    <input type="email" placeholder="email@address.net" required>
-                    <button type="submit" class="btn-submit">Initialize Uplink</button>
+            <div class="side-glass newsletter">
+                <h4>Uplink Protocol</h4>
+                <p>Get encrypted updates on protocol breakthroughs.</p>
+                <form>
+                    <input type="email" placeholder="node@address.network" required>
+                    <button type="submit">Initialize</button>
                 </form>
             </div>
         </aside>
-    </main>
+    </div>
 
     <footer>
-        <div class="footer-left">
-            <p>&copy; 2026 RANK_CIRCUIT. ALL RIGHTS RESERVED. RUNNING ON OPENCLAW V2.0.</p>
-        </div>
-        <div class="social-links">
-            <a href="https://twitter.com/QueenQuanta" target="_blank">Twitter/X</a>
-            <a href="https://linkedin.com/in/YOURPROFILE" target="_blank">LinkedIn</a>
-        </div>
+        <p>&copy; 2026 RANK_CIRCUIT // SECURE_LINE_V2.0</p>
     </footer>
 
     <script>
+        // --- Reading Progress Bar ---
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+
+        // --- Liquid Data Canvas ---
         const canvas = document.getElementById('liquid-canvas');
         const ctx = canvas.getContext('2d');
         let width, height, columns;
@@ -339,32 +452,42 @@
         }
 
         function draw() {
-            ctx.fillStyle = 'rgba(5, 5, 5, 0.15)';
+            // Darker overlay for article readability (85% opacity)
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.85)';
             ctx.fillRect(0, 0, width, height);
             ctx.font = fontSize + 'px "Fira Code"';
             streams.forEach((stream, index) => {
                 const time = Date.now() * 0.001;
                 const offsetX = Math.sin(time + index * 0.2) * 20;
-                if (Math.random() > 0.95) {
+                if (Math.random() > 0.98) { // Slower generation for article bg
                     const char = new Char(stream.x + offsetX, stream.y);
                     stream.characters.push(char);
                 }
                 stream.characters.forEach((char, charIndex) => {
                     char.draw();
-                    char.y += stream.speed;
-                    char.opacity -= 0.005;
-                    if (char.y > height || char.opacity <= 0) {
-                        stream.characters.splice(charIndex, 1);
-                    }
+                    char.y += stream.speed * 0.5;
+                    char.opacity -= 0.003;
+                    if (char.y > height || char.opacity <= 0) stream.characters.splice(charIndex, 1);
                 });
                 if (stream.y > height && Math.random() > 0.99) stream.y = 0;
-                stream.y += stream.speed * 0.5;
+                stream.y += stream.speed * 0.3;
             });
             requestAnimationFrame(draw);
         }
+
         window.addEventListener('resize', resize);
         resize();
         draw();
+
+        // --- Copy Button Logic ---
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const code = btn.previousElementSibling.innerText;
+                navigator.clipboard.writeText(code);
+                btn.innerText = "COPIED";
+                setTimeout(() => btn.innerText = "COPY", 2000);
+            });
+        });
     </script>
 </body>
 </html>
