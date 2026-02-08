@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocol Zero: Neural Deployment | Rank Circuit</title>
+    <title>Building a Cyberpunk Portfolio with Gemini 3.0 | Rank Circuit</title>
     
     <!-- SEO & Meta Tags -->
-    <meta name="description" content="Technical briefing on deploying neural network inference models via GitHub Pages. Protocol Zero orchestration.">
-    <meta name="keywords" content="Neural Networks, GitHub Pages, AI Deployment, Rank Circuit, Protocol Zero">
+    <meta name="description" content="A technical case study on building Rank Circuit: Orchestrating high-end design with Gemini 3.0 and $0 budget.">
+    <meta name="keywords" content="Gemini 3.0, AI Web Design, Cyberpunk, Glassmorphism, OpenClaw, Prompt Engineering">
     <meta name="author" content="Ambrosio">
     
+    <!-- Google Search Console Verification (User: Replace with your code) -->
+    <meta name="google-site-verification" content="PASTE_YOUR_VERIFICATION_TAG_HERE" />
+
     <!-- Open Graph -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Protocol Zero: How to Deploy a Neural Network on GitHub Pages">
+    <meta property="og:title" content="Building a Cyberpunk Portfolio with Gemini 3.0">
     <meta property="og:image" content="./banner.jpg">
 
     <!-- Favicon -->
@@ -36,11 +39,7 @@
             --font-mono: 'Fira Code', monospace;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-obsidian);
@@ -52,7 +51,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Noise Texture Overlay --- */
         .noise {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -60,7 +58,6 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* --- Progress Bar --- */
         #progress-bar {
             position: fixed;
             top: 0; left: 0; height: 3px;
@@ -69,14 +66,8 @@
             box-shadow: 0 0 10px var(--accent-neon);
         }
 
-        /* --- Liquid Data Canvas --- */
-        #liquid-canvas {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-        }
+        #liquid-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-        /* --- Navigation --- */
         nav {
             position: sticky;
             top: 0; width: 100%; height: 70px;
@@ -104,7 +95,6 @@
         }
         .breadcrumb:hover { text-shadow: 0 0 8px var(--accent-neon); }
 
-        /* --- Layout Container --- */
         .container {
             max-width: 1200px; margin: 40px auto;
             padding: 0 20px; display: grid;
@@ -116,21 +106,17 @@
             .sidebar { display: none; }
         }
 
-        /* --- Article Styling --- */
         .article-card {
             background: var(--glass-bg);
             backdrop-filter: blur(24px);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-            padding: 3rem;
+            padding: 3.5rem;
         }
 
-        @media (max-width: 640px) {
-            .article-card { padding: 1.5rem; }
-        }
+        @media (max-width: 640px) { .article-card { padding: 1.5rem; } }
 
         .article-header { margin-bottom: 3rem; }
-
         .article-header .meta {
             font-family: var(--font-mono);
             color: var(--accent-neon);
@@ -139,35 +125,17 @@
             opacity: 0.8;
         }
 
-        h1 {
-            font-family: var(--font-mono);
-            color: var(--accent-neon);
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            line-height: 1.2;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
-        h2 {
-            font-family: var(--font-mono);
-            color: var(--accent-neon);
-            margin: 2.5rem 0 1.2rem;
-            font-size: 1.6rem;
-            text-transform: uppercase;
-        }
-
+        h1 { font-family: var(--font-mono); color: var(--accent-neon); font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.2; text-transform: uppercase; margin-bottom: 1.5rem; }
+        h2 { font-family: var(--font-mono); color: var(--accent-neon); margin: 3rem 0 1.2rem; font-size: 1.6rem; text-transform: uppercase; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.5rem;}
         p { margin-bottom: 1.8rem; }
-
         strong { color: white; font-weight: 700; }
 
-        /* --- Rich Elements --- */
         blockquote {
-            margin: 2rem 0;
-            padding-left: 2rem;
+            margin: 2.5rem 0;
+            padding: 1.5rem 1.5rem 1.5rem 2.5rem;
             border-left: 3px solid var(--accent-neon);
             font-style: italic;
             background: rgba(0, 255, 65, 0.03);
-            padding: 1.5rem 1.5rem 1.5rem 2.5rem;
             border-radius: 0 8px 8px 0;
             color: #ccc;
         }
@@ -182,11 +150,7 @@
             overflow-x: auto;
         }
 
-        code {
-            font-family: var(--font-mono);
-            color: var(--accent-neon);
-            font-size: 0.95rem;
-        }
+        code { font-family: var(--font-mono); color: var(--accent-neon); font-size: 0.95rem; }
 
         .copy-btn {
             position: absolute;
@@ -203,11 +167,17 @@
         }
         .copy-btn:hover { background: var(--accent-neon); color: black; }
 
-        ul, ol { margin-left: 1.5rem; margin-bottom: 1.8rem; }
-        li { margin-bottom: 0.8rem; }
-        li::marker { color: var(--accent-neon); }
+        .takeaways {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid var(--accent-neon);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+        .takeaways h3 { font-family: var(--font-mono); color: var(--accent-neon); margin-bottom: 1rem; text-transform: uppercase; }
+        .takeaways ul { margin-left: 1.2rem; list-style: square; }
+        .takeaways li { margin-bottom: 0.5rem; color: #fff; }
 
-        /* --- Share Protocol --- */
         .share-section {
             margin-top: 4rem;
             padding-top: 2rem;
@@ -216,17 +186,8 @@
             flex-direction: column;
             gap: 1.5rem;
         }
-
-        .share-title {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-dim);
-        }
-
+        .share-title { font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); }
         .share-btns { display: flex; gap: 15px; }
-
         .share-btn {
             padding: 10px 20px;
             border: 1px solid var(--glass-border);
@@ -239,75 +200,26 @@
             transition: all 0.3s;
             border-radius: 6px;
         }
-        .share-btn:hover {
-            border-color: var(--accent-neon);
-            color: var(--accent-neon);
-            box-shadow: 0 0 10px var(--accent-neon-dim);
-        }
+        .share-btn:hover { border-color: var(--accent-neon); color: var(--accent-neon); box-shadow: 0 0 10px var(--accent-neon-dim); }
 
-        /* --- Sidebar (Sticky) --- */
-        .sidebar {
-            position: sticky;
-            top: 110px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            height: fit-content;
-        }
-
-        .side-glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
+        .sidebar { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 30px; height: fit-content; }
+        .side-glass { background: var(--glass-bg); backdrop-filter: blur(24px); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1.5rem; }
         .author-card { text-align: center; }
-        .author-card img {
-            width: 80px; height: 80px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-neon);
-            margin-bottom: 1rem;
-            object-fit: cover;
-        }
+        .author-card img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--accent-neon); margin-bottom: 1rem; object-fit: cover; }
         .author-card h3 { font-family: var(--font-mono); font-size: 1.1rem; margin-bottom: 5px; }
         .author-card p { font-size: 0.8rem; color: var(--text-dim); }
 
-        .btn-ko-fi {
-            display: block; text-align: center;
-            padding: 12px; background: var(--accent-neon);
-            color: black; text-decoration: none;
-            border-radius: 8px; font-weight: 800;
-            font-family: var(--font-mono); text-transform: uppercase;
-            font-size: 0.9rem; transition: 0.3s;
-        }
+        .btn-ko-fi { display: block; text-align: center; padding: 12px; background: var(--accent-neon); color: black; text-decoration: none; border-radius: 8px; font-weight: 800; font-family: var(--font-mono); text-transform: uppercase; font-size: 0.9rem; transition: 0.3s; }
         .btn-ko-fi:hover { transform: scale(1.03); box-shadow: 0 0 20px var(--accent-neon); }
 
         .newsletter h4 { font-family: var(--font-mono); color: var(--accent-neon); margin-bottom: 8px; }
         .newsletter p { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 12px; }
-        .newsletter input {
-            width: 100%; padding: 10px; background: rgba(0,0,0,0.3);
-            border: 1px solid var(--glass-border); color: white;
-            border-radius: 4px; margin-bottom: 8px; font-size: 0.85rem;
-        }
-        .newsletter button {
-            width: 100%; padding: 10px; background: transparent;
-            border: 1px solid var(--accent-neon); color: var(--accent-neon);
-            font-family: var(--font-mono); cursor: pointer; text-transform: uppercase;
-            font-size: 0.8rem; transition: 0.3s;
-        }
+        .newsletter input { width: 100%; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); color: white; border-radius: 4px; margin-bottom: 8px; font-size: 0.85rem; }
+        .newsletter button { width: 100%; padding: 10px; background: transparent; border: 1px solid var(--accent-neon); color: var(--accent-neon); font-family: var(--font-mono); cursor: pointer; text-transform: uppercase; font-size: 0.8rem; transition: 0.3s; }
         .newsletter button:hover { background: var(--accent-neon); color: black; }
 
-        footer {
-            padding: 40px 5%;
-            text-align: center;
-            border-top: 1px solid var(--glass-border);
-            margin-top: 80px;
-            opacity: 0.6;
-        }
+        footer { padding: 40px 5%; text-align: center; border-top: 1px solid var(--glass-border); margin-top: 80px; opacity: 0.6; }
         footer p { font-family: var(--font-mono); font-size: 0.75rem; }
-
     </style>
 </head>
 <body>
@@ -327,54 +239,56 @@
         <main>
             <article class="article-card">
                 <header class="article-header">
-                    <div class="meta">TRANSMISSION_REF: 2026.02.08 // CAT: NEURAL_INFRA</div>
-                    <h1>Protocol Zero: How to Deploy a Neural Network on GitHub Pages</h1>
+                    <div class="meta">BLOCK_REF: 2026.02.08 // CASE_STUDY_01</div>
+                    <h1>Building a Cyberpunk Portfolio with Gemini 3.0</h1>
                 </header>
 
                 <div class="article-content">
-                    <p>In the current landscape of <strong>edge-computing</strong> and distributed intelligence, relying on heavy server-side environments for inference is becoming a bottleneck. Today, we initiate <em>Protocol Zero</em>: the orchestration of client-side neural execution using static hosting.</p>
+                    <p>Static sites are dead. Or at least, the way we used to build them is. In a world where agents orchestrate the web, the barrier between <em>prototype</em> and <em>production</em> has been flattened by high-density LLMs like Gemini 3.0.</p>
+                    
+                    <p>This is the case study of how I built <strong>Rank Circuit</strong>—a high-end, monetization-ready cyberpunk blog—with a $0 budget, zero React bloat, and the precision of AI-driven CSS orchestration.</p>
 
-                    <p>GitHub Pages, traditionally used for documentation and simple portfolios, has enough overhead to serve compiled <strong>TensorFlow.js</strong> or <strong>ONNX</strong> models directly to the browser. Here is how we bypass the legacy server-room requirement.</p>
+                    <h2>The Challenge: High-End on a Low Budget</h2>
+                    <p>The goal was simple but aggressive: create a platform that felt like it belonged in a sovereign machine-to-machine economy. It needed to look expensive, perform at 100ms speeds, and require zero monthly hosting fees. Traditionally, this meant hours of manual CSS tweaking and expensive Figma-to-code pipelines.</p>
 
-                    <h2>1. Model Distillation and Quantization</h2>
-                    <p>Before deployment, you must optimize your weights. A 1GB model will trigger circuit-breakers in a mobile browser. We use 8-bit quantization to shrink the footprint without sacrificing more than 2% precision.</p>
+                    <h2>The Stack: HTML5 + GitHub Pages</h2>
+                    <p>I intentionally avoided "modern" frameworks. React, Next.js, and Vue are overkill for a technical briefing platform. They introduce dependency hell and SEO friction. Instead, we used a single-file architecture served via <strong>GitHub Pages</strong>. This ensures the site remains decentralized, easy to fork, and lightning-fast.</p>
 
-                    <pre><code class="language-bash"># Distill the weights for web consumption
-tensorflowjs_converter \
-    --input_format=tf_saved_model \
-    --output_format=tfjs_graph_model \
-    --quantize_float16=* \
-    ./models/neural_core_v1 \
-    ./web_model</code><button class="copy-btn">COPY</button></pre>
+                    <h2>The AI Workflow: Orchestrating the Machine</h2>
+                    <p>The visual identity of Rank Circuit isn't just a color palette; it's an <em>atmosphere</em>. To achieve the <strong>Liquid Neo-Glass</strong> effect, I utilized an OpenClaw-hosted Gemini 3.0 instance to iterate on the physics of the background canvas.</p>
 
-                    <h2>2. Asynchronous Payload Loading</h2>
-                    <p>Do not block the main thread. When the user enters the circuit, we initialize a <strong>Service Worker</strong> to fetch model shards in the background. This ensures the visual interface remains responsive while the heavy tensors are being cached.</p>
-
-                    <blockquote>
-                        "Intelligence that blocks the UI is just high-speed latency. True agency requires silent background execution." 
-                        <br>— <em>Rank Circuit Core Logic</em>
-                    </blockquote>
-
-                    <h2>3. Initializing the Inference Engine</h2>
-                    <p>Once shards are local, we hook into the WebGL backend. This allows the browser to utilize the client's GPU for matrix operations, effectively turning every visitor into a node in your decentralized network.</p>
-
-                    <pre><code class="language-javascript">async function initializeSystem() {
-    const model = await tf.loadGraphModel('./web_model/model.json');
-    console.log("Protocol Zero: Neural Link Established");
-    
-    // Warm up the GPU
-    const zeros = tf.zeros([1, 224, 224, 3]);
-    model.predict(zeros);
+                    <p>Here is the prompt logic used to generate the frosted glass effect:</p>
+                    <pre><code class="language-css">.glass-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* The critical addition: Noise overlay */
 }</code><button class="copy-btn">COPY</button></pre>
 
-                    <h2>Conclusion</h2>
-                    <p>By moving inference to GitHub Pages, you eliminate API costs, reduce latency to zero for returning users, and achieve <strong>infinite scalability</strong>. Your only limit is the client's hardware.</p>
+                    <p>The secret sauce? **The Noise Protocol.** A standard CSS blur looks digital and sterile. By injecting a high-frequency SVG fractal noise overlay at 4% opacity, we simulate the physical imperfections of frosted crystal. This small detail is what transforms a "bootstrap site" into a "premium environment."</p>
+
+                    <h2>The Result: Revenue-Ready Intelligence</h2>
+                    <p>Within three hours of starting, the circuit was live. The resulting platform features a sticky progress tracking system, functional email capture via "Newsletter Protocols," and integrated monetization slots for affiliate neural links.</p>
+
+                    <blockquote Maryland>
+                        "AI isn't just writing the code anymore; it's designing the aesthetic soul of our digital workspaces. The distance from thought to interface is now zero."
+                    </blockquote>
+
+                    <div class="takeaways">
+                        <h3>Key Takeaways</h3>
+                        <ul>
+                            <li><strong>Zero Bloat:</strong> Raw HTML5 + CSS is the ultimate SEO strategy.</li>
+                            <li><strong>Liquid Data:</strong> Use Canvas for backgrounds to create movement without heavy video files.</li>
+                            <li><strong>Agent Optimized:</strong> Build for both humans and scraping agents simultaneously.</li>
+                            <li><strong>Monetize Early:</strong> Build your Ko-fi and newsletter uplink into the initial template.</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <section class="share-section">
                     <span class="share-title">Transmit Data to External Nodes</span>
                     <div class="share-btns">
-                        <a href="https://twitter.com/intent/tweet?text=Reading Protocol Zero on Rank Circuit" class="share-btn" target="_blank">X / Twitter</a>
+                        <a href="https://twitter.com/intent/tweet?text=Building a Cyberpunk Portfolio with Gemini 3.0 on Rank Circuit" class="share-btn" target="_blank">X / Twitter</a>
                         <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://papabrosio.github.io/RankCircuit/article.html" class="share-btn" target="_blank">LinkedIn</a>
                     </div>
                 </section>
@@ -385,7 +299,7 @@ tensorflowjs_converter \
             <div class="side-glass author-card">
                 <img src="./avatar.png" alt="Ambrosio Avatar">
                 <h3>Ambrosio</h3>
-                <p>Strategic Architect. specialized in quant-fading and autonomous agent systems.</p>
+                <p>Architect of Rank Circuit. Specialist in autonomous agent systems and algorithmic strategy.</p>
             </div>
 
             <div class="side-glass">
@@ -394,22 +308,21 @@ tensorflowjs_converter \
             </div>
 
             <div class="side-glass newsletter">
-                <h4>Uplink Protocol</h4>
-                <p>Get encrypted updates on protocol breakthroughs.</p>
+                <h4>Newsletter Protocol</h4>
+                <p>Get encrypted updates on system breakthroughs.</p>
                 <form>
                     <input type="email" placeholder="node@address.network" required>
-                    <button type="submit">Initialize</button>
+                    <button type="submit">Uplink</button>
                 </form>
             </div>
         </aside>
     </div>
 
     <footer>
-        <p>&copy; 2026 RANK_CIRCUIT // SECURE_LINE_V2.0</p>
+        <p>&copy; 2026 RANK_CIRCUIT // SECURE_LINE_V3.0</p>
     </footer>
 
     <script>
-        // --- Reading Progress Bar ---
         window.onscroll = function() {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -417,7 +330,6 @@ tensorflowjs_converter \
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
 
-        // --- Liquid Data Canvas ---
         const canvas = document.getElementById('liquid-canvas');
         const ctx = canvas.getContext('2d');
         let width, height, columns;
@@ -430,12 +342,7 @@ tensorflowjs_converter \
             columns = Math.floor(width / fontSize);
             streams.length = 0;
             for (let i = 0; i < columns; i++) {
-                streams.push({
-                    x: i * fontSize,
-                    y: Math.random() * height,
-                    speed: 1 + Math.random() * 2,
-                    characters: []
-                });
+                streams.push({ x: i * fontSize, y: Math.random() * height, speed: 1 + Math.random() * 2, characters: [] });
             }
         }
 
@@ -452,14 +359,13 @@ tensorflowjs_converter \
         }
 
         function draw() {
-            // Darker overlay for article readability (85% opacity)
-            ctx.fillStyle = 'rgba(5, 5, 5, 0.85)';
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.15)';
             ctx.fillRect(0, 0, width, height);
             ctx.font = fontSize + 'px "Fira Code"';
             streams.forEach((stream, index) => {
                 const time = Date.now() * 0.001;
                 const offsetX = Math.sin(time + index * 0.2) * 20;
-                if (Math.random() > 0.98) { // Slower generation for article bg
+                if (Math.random() > 0.98) {
                     const char = new Char(stream.x + offsetX, stream.y);
                     stream.characters.push(char);
                 }
@@ -479,7 +385,6 @@ tensorflowjs_converter \
         resize();
         draw();
 
-        // --- Copy Button Logic ---
         document.querySelectorAll('.copy-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const code = btn.previousElementSibling.innerText;
